@@ -69,8 +69,17 @@
         cursor: pointer;
         font-size: 16px;
         text-align: center;
+        width: 100%;
         font-weight: 100;
         transition: background-color 0.3s ease;
+      }
+      .submit {
+       text-align: center
+      }
+      a {
+        border-radius: 10px;
+        color: blue;
+        text-decoration: none;
       }
 
       button:hover {
@@ -119,7 +128,12 @@
             placeholder="Enter Password"
           />
         </div>
-        <button type="submit">Signup</button>
+        <div class="submit">
+          <button type="submit">Signup</button>
+          <p style="font-size: 1rem; font-weight: 700">
+            Have an Account? <a href="/login">Login</a>
+          </p>
+        </div>
       </form>
     </div>
   </body>
