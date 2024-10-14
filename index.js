@@ -6,7 +6,8 @@ const URL = require("./models/url");
 const urlRoute = require("./routes/url");
 const staticRouter = require("./routes/staticRouter");
 const userRoute = require("./routes/user");
-const { restritToLoggedUserOnly, checkAuth } = require("./middleware/auth");
+// const { restritToLoggedUserOnly, checkAuth } = require("./middleware/auth");
+const { checkForAuthentication, restricTo } = require("./middleware/auth");
 const app = express();
 
 // Connect to  Mongoose
@@ -24,11 +25,14 @@ app.use(express.json());
 // For parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkForAuthentication);
 
 // Routes
-app.use("/url", restritToLoggedUserOnly, urlRoute);
+// app.use("/url", restritToLoggedUserOnly, urlRoute);
+app.use("/url", restricTo(["NORMAL"]), urlRoute);
 app.use("/user", userRoute);
-app.use("/", checkAuth, staticRouter);
+// app.use("/", checkAuth, staticRouter);
+app.use("/", staticRouter);
 
 // Redirect based on shortId
 app.get("/url/:shortId", async (req, res) => {
